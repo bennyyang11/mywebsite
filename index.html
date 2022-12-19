@@ -1,1 +1,77 @@
-<h1>Hello!</h1>
+<html>
+  <head>
+    <style>
+      body {
+        background-color: #fff;
+      }
+      .car {
+        width: 50px;
+        height: 100px;
+        background-color: red;
+        position: absolute;
+      }
+      .section {
+        width: 100px;
+        height: 100px;
+        background-color: blue;
+        position: absolute;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="car" class="car"></div>
+    <div id="projects" class="section">Projects</div>
+    <div id="about" class="section">About Me</div>
+    <div id="contact" class="section">Contact Me</div>
+    <script>
+      const car = document.getElementById('car');
+      const sections = {
+        projects: document.getElementById('projects'),
+        about: document.getElementById('about'),
+        contact: document.getElementById('contact')
+      };
+      const speed = 5; // pixels per frame
+      let x = 0;
+      let y = 0;
+
+      function update() {
+        car.style.left = x + 'px';
+        car.style.top = y + 'px';
+      }
+
+      function handleKeyDown(event) {
+        switch (event.key) {
+          case 'ArrowUp':
+            y -= speed;
+            break;
+          case 'ArrowDown':
+            y += speed;
+            break;
+          case 'ArrowLeft':
+            x -= speed;
+            break;
+          case 'ArrowRight':
+            x += speed;
+            break;
+        }
+        update();
+      }
+
+      function handleSectionEnter(event) {
+        const section = event.target;
+        section.style.backgroundColor = 'yellow';
+      }
+
+      function handleSectionLeave(event) {
+        const section = event.target;
+        section.style.backgroundColor = 'blue';
+      }
+
+      window.addEventListener('keydown', handleKeyDown);
+      for (const section of Object.values(sections)) {
+        section.addEventListener('mouseenter', handleSectionEnter);
+        section.addEventListener('mouseleave', handleSectionLeave);
+      }
+    </script>
+  </body>
+</html>
